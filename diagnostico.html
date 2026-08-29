@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diagnóstico - SALDOFamília</title><link rel="stylesheet" href="styles.css"></head>
+<body><main class="legal"><h1>Diagnóstico do SALDOFamília</h1><div id="out"></div><p><a href="index.html">Voltar</a></p></main>
+<script>
+const tests = [];
+function t(name, ok, detail=''){ tests.push({name,ok,detail}); }
+t('JavaScript do navegador', true);
+t('localStorage disponível', (()=>{try{localStorage.setItem('_sf_test','1');localStorage.removeItem('_sf_test');return true}catch{return false}})());
+t('Service Worker suportado', 'serviceWorker' in navigator);
+t('Notificações suportadas', 'Notification' in window);
+t('Online', navigator.onLine);
+fetch('manifest.webmanifest').then(r=>t('Manifest acessível',r.ok,`HTTP ${r.status}`)).catch(e=>t('Manifest acessível',false,e.message))
+.finally(()=>fetch('app.js').then(r=>t('app.js acessível',r.ok,`HTTP ${r.status}`)).catch(e=>t('app.js acessível',false,e.message))
+.finally(()=>setTimeout(render,50)));
+function render(){
+ out.innerHTML=tests.map(x=>`<div class="security-item"><span class="security-status ${x.ok?'ok':'warn'}">${x.ok?'✓':'!'}</span><div><strong>${x.name}</strong><p class="muted">${x.detail||''}</p></div></div>`).join('');
+}
+</script></body></html>

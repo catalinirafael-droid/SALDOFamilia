@@ -1,0 +1,17 @@
+{
+  "name": "SALDOFamília",
+  "short_name": "SALDOFamília",
+  "description": "Controle financeiro familiar com segurança reforçada",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F7F8FC",
+  "theme_color": "#5A4DFF",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
