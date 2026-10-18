@@ -242,9 +242,12 @@ async function renderFamily(){if(!currentFamily)return;familyName.textContent=cu
 
 async function refreshFamilyContext(){
   const ok = await ensureFamily();
-  if(!ok) return;
-  await refreshFamilyContext();
+  if(!ok) {
+    showToast('Não foi possível carregar sua família. Tente entrar novamente.');
+    return false;
+  }
   await renderFamily();
+  return true;
 }
 
 async function ensureDefaultCategories(){
